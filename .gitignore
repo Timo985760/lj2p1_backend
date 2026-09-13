@@ -1,8 +1,11 @@
 **/node_modules
 **/vendor
 .env
+**/.env
 .env.backup
+**/.env.backup
 .env.production
+**/.env.production
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
