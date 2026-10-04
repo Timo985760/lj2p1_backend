@@ -89,4 +89,39 @@ class MagazijnController extends Controller
             'verwachteLevering' => $verwachteDatumGeformatteerd,
         ]);
     }
+
+    /**
+     * Scherm 3: Overzicht Allergenen
+     * Toont allergeneninformatie van een gekozen product (User Story 2 - Scenario 01 & 02).
+     *
+     * @param int $productId
+     * @return Response
+     */
+    public function allergenen(int $productId): Response
+    {
+        $allergenenData = $this->magazijnModel->getProductAllergensInfo($productId);
+
+        if (!$allergenenData) {
+            abort(404, 'Product niet gevonden');
+        }
+
+        $allergenenLijst = array_map(function ($alg) {
+            return [
+                'id' => $alg->Id,
+                'naam' => $alg->Naam,
+                'omschrijving' => $alg->Omschrijving,
+            ];
+        }, $allergenenData->allergenen);
+
+        return Inertia::render('Magazijn/Allergenen', [
+            'product' => [
+                'id' => $allergenenData->product->ProductId,
+                'naam' => $allergenenData->product->ProductNaam,
+                'barcode' => $allergenenData->product->Barcode,
+            ],
+            'allergenen' => $allergenenLijst,
+            'hasAllergens' => $allergenenData->hasAllergens,
+        ]);
+    }
 }
+
