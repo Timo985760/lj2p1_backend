@@ -13,8 +13,6 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         document.getElementById('background')?.classList.add('!hidden');
     };
 
-    const isMagazijnmedewerker = auth?.user?.rolename === 'Magazijnmedewerker';
-
     return (
         <>
             <Head title="Welcome" />
@@ -41,14 +39,6 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 </svg>
                             </div>
                             <nav className="-mx-3 flex flex-1 items-center justify-end gap-2">
-                                {isMagazijnmedewerker && (
-                                    <Link
-                                        href="/magazijn"
-                                        className="rounded-md bg-pink-600 px-4 py-2 font-medium text-white shadow transition hover:bg-pink-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
-                                    >
-                                        Overzicht Magazijn Jamin
-                                    </Link>
-                                )}
                                 {auth.user ? (
                                     <Link
                                         href={route('dashboard')}
@@ -77,30 +67,6 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </header>
 
                         <main className="mt-6">
-                            {/* Jamin Banner Card - Alleen zichtbaar voor ingelogde Magazijnmedewerker */}
-                            {isMagazijnmedewerker && (
-                                <div className="mb-6 overflow-hidden rounded-xl border border-pink-200 bg-gradient-to-r from-pink-50 via-white to-pink-50 p-6 shadow-sm dark:border-pink-900/40 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900">
-                                    <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-                                        <div>
-                                            <span className="inline-block rounded-full bg-pink-100 px-3 py-1 text-xs font-semibold text-pink-700 dark:bg-pink-950 dark:text-pink-300">
-                                                Jamin Magazijn Systeem
-                                            </span>
-                                            <h2 className="mt-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                                Overzicht Magazijn Jamin
-                                            </h2>
-                                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-                                                Bekijk alle producten, actuele voorraad, leveringsinformatie en allergenen.
-                                            </p>
-                                        </div>
-                                        <Link
-                                            href="/magazijn"
-                                            className="inline-flex items-center gap-2 rounded-lg bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-pink-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600"
-                                        >
-                                            Naar Magazijn Overzicht &rarr;
-                                        </Link>
-                                    </div>
-                                </div>
-                            )}
 
                             <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
                                 <a
