@@ -30,6 +30,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href="/magazijn"
+                                    active={window.location.pathname.startsWith('/magazijn')}
+                                >
+                                    Overzicht Magazijn Jamin
+                                </NavLink>
                             </div>
                         </div>
 
@@ -133,6 +139,12 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('dashboard')}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href="/magazijn"
+                            active={window.location.pathname.startsWith('/magazijn')}
+                        >
+                            Overzicht Magazijn Jamin
                         </ResponsiveNavLink>
                     </div>
 
