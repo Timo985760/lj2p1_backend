@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('/magazijn', [MagazijnController::class, 'index'])->name('magazijn.index');
 Route::get('/magazijn/levering/{productId}', [MagazijnController::class, 'levering'])->name('magazijn.levering');
+Route::get('/magazijn/allergenen/{productId}', [MagazijnController::class, 'allergenen'])->name('magazijn.allergenen');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
