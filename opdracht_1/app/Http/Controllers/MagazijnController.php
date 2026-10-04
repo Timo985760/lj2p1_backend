@@ -48,12 +48,17 @@ class MagazijnController extends Controller
      * Scherm 2: Levering Informatie
      * Toont leveranciergegevens en leveringstabel (User Story 1 - Scenario 01 & 02).
      *
-     * @param int $productId
+     * @param int|string $productId
      * @return Response
      */
-    public function levering(int $productId): Response
+    public function levering(int|string $productId): Response
     {
-        $deliveryData = $this->magazijnModel->getProductDeliveryInfo($productId);
+        $id = (int) $productId;
+        if ($id <= 0) {
+            abort(404, 'Ongeldig product ID opgegeven');
+        }
+
+        $deliveryData = $this->magazijnModel->getProductDeliveryInfo($id);
 
         if (!$deliveryData) {
             abort(404, 'Product niet gevonden');
@@ -94,12 +99,17 @@ class MagazijnController extends Controller
      * Scherm 3: Overzicht Allergenen
      * Toont allergeneninformatie van een gekozen product (User Story 2 - Scenario 01 & 02).
      *
-     * @param int $productId
+     * @param int|string $productId
      * @return Response
      */
-    public function allergenen(int $productId): Response
+    public function allergenen(int|string $productId): Response
     {
-        $allergenenData = $this->magazijnModel->getProductAllergensInfo($productId);
+        $id = (int) $productId;
+        if ($id <= 0) {
+            abort(404, 'Ongeldig product ID opgegeven');
+        }
+
+        $allergenenData = $this->magazijnModel->getProductAllergensInfo($id);
 
         if (!$allergenenData) {
             abort(404, 'Product niet gevonden');
