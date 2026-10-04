@@ -35,11 +35,11 @@ Deze applicatie is gebouwd ter vervulling van **BE-opdracht 01**. De implementat
 *Als magazijnmedewerker wil ik de leveringsdata zien aan het magazijn van het gekozen product, met de bijbehorende aantallen en wat de verwachte eerstvolgende leveringsdata zijn van het product, zodat ik kan zien of een leverancier ook daadwerkelijk een product op tijd levert aan het magazijn.*
 
 * **Scenario 01 (Mintnopjes - Id 1):**
-  - Klik op het **blauwe vraagteken-icoon** (❓) in de kolom *Leverantie Info*.
+  - Klik op het **blauwe vraagteken-icoon** in de kolom *Leverantie Info*.
   - Detailscherm **Levering Informatie** toont de leveranciergegevens bovenaan (`Naam Leverancier: Venco`, `Contactpersoon leverancier: Bert van Linge`, `Leverancier nummer: L1029384719`, `Mobiel: 06-28493827`).
   - De tabel toont de leveringen gesorteerd op `Datum laatste levering` oplopend.
 * **Scenario 02 (Winegums - Id 10):**
-  - Klik op het **blauwe vraagteken-icoon** (❓) bij *Winegums*. Omdat er geen voorraad is (`AantalAanwezig` is NULL/0), toont de tabel de melding:  
+  - Klik op het **blauwe vraagteken-icoon** bij *Winegums*. Omdat er geen voorraad is (`AantalAanwezig` is NULL/0), toont de tabel de melding:  
     `"Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: 30-10-2024"`
   - Na **4 seconden** wordt de gebruiker automatisch teruggestuurd naar de pagina *Overzicht Magazijn Jamin*.
 
@@ -49,11 +49,11 @@ Deze applicatie is gebouwd ter vervulling van **BE-opdracht 01**. De implementat
 *Als magazijnmedewerker wil ik de allergenen informatie zien van een product, zodat ik kan zien of een product geschikt is voor klanten met een allergie.*
 
 * **Scenario 01 (Zoute Ruitjes - Id 13):**
-  - Klik op het **rode kruis-icoon** (❌) in de kolom *Allergenen Info*.
+  - Klik op het **rode kruis-icoon** in de kolom *Allergenen Info*.
   - Detailscherm **Overzicht Allergenen** toont bovenaan `Naam: Zoute Ruitjes` en `Barcode: 8719587323256`.
   - De rijen in de tabel tonen de allergenen gesorteerd op `Naam` oplopend (`Gluten`, `Lactose`, `Soja`).
 * **Scenario 02 (Cola Flesjes - Id 5):**
-  - Klik op het **rode kruis-icoon** (❌) bij *Cola Flesjes*. Omdat er geen allergenen geregistreerd zijn, toont de tabel de melding:  
+  - Klik op het **rode kruis-icoon** bij *Cola Flesjes*. Omdat er geen allergenen geregistreerd zijn, toont de tabel de melding:  
     `"In dit product zitten geen stoffen die een allergische reactie kunnen veroorzaken"`
   - Na **4 seconden** wordt de gebruiker automatisch teruggestuurd naar de pagina *Overzicht Magazijn Jamin*.
 
