@@ -30,12 +30,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
-                                <NavLink
-                                    href="/magazijn"
-                                    active={window.location.pathname.startsWith('/magazijn')}
-                                >
-                                    Overzicht Magazijn Jamin
-                                </NavLink>
+                                {user.rolename === 'Magazijnmedewerker' && (
+                                    <NavLink
+                                        href="/magazijn"
+                                        active={window.location.pathname.startsWith('/magazijn')}
+                                    >
+                                        Overzicht Magazijn Jamin
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
 
@@ -140,12 +142,14 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href="/magazijn"
-                            active={window.location.pathname.startsWith('/magazijn')}
-                        >
-                            Overzicht Magazijn Jamin
-                        </ResponsiveNavLink>
+                        {user.rolename === 'Magazijnmedewerker' && (
+                            <ResponsiveNavLink
+                                href="/magazijn"
+                                active={window.location.pathname.startsWith('/magazijn')}
+                            >
+                                Overzicht Magazijn Jamin
+                            </ResponsiveNavLink>
+                        )}
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
