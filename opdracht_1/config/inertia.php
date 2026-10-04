@@ -38,6 +38,7 @@ return [
     'pages' => [
 
         'paths' => [
+            resource_path('js/Pages'),
             resource_path('js/pages'),
         ],
 
@@ -65,7 +66,19 @@ return [
 
     'testing' => [
 
-        'ensure_pages_exist' => true,
+        'ensure_pages_exist' => false,
+
+        'page_paths' => [
+            resource_path('js/Pages'),
+            resource_path('js/pages'),
+        ],
+
+        'page_extensions' => [
+            'js',
+            'jsx',
+            'ts',
+            'tsx',
+        ],
 
     ],
 
