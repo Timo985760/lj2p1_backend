@@ -14,14 +14,14 @@ export default function Index({ auth, products }) {
                                 Jamin Magazijn
                             </span>
                         </div>
-                        <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 underline decoration-pink-500 decoration-4 underline-offset-8">
+                        <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-zinc-100 underline decoration-pink-500 decoration-4 underline-offset-8">
                             Overzicht Magazijn Jamin
                         </h1>
                         <div className="mt-2 flex items-center gap-3">
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-600 dark:text-zinc-400">
                                 Overzicht van alle in het magazijn aanwezige producten, gesorteerd op Barcode (oplopend).
                             </p>
-                            <span className="inline-flex items-center rounded-full bg-pink-100 px-2.5 py-0.5 text-xs font-semibold text-pink-800">
+                            <span className="inline-flex items-center rounded-full bg-pink-100 px-2.5 py-0.5 text-xs font-semibold text-pink-800 dark:bg-pink-950/60 dark:text-pink-300">
                                 {products ? products.length : 0} producten
                             </span>
                         </div>
@@ -30,7 +30,7 @@ export default function Index({ auth, products }) {
                     <div className="flex items-center gap-3">
                         <Link
                             href="/"
-                            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+                            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
                         >
                             &larr; Homepage
                         </Link>
@@ -38,32 +38,32 @@ export default function Index({ auth, products }) {
                 </div>
 
                 {/* Table Container according to Wireframe 1 */}
-                <div className="overflow-hidden rounded-lg border border-gray-300 bg-white shadow">
+                <div className="overflow-hidden rounded-lg border border-gray-300 bg-white shadow dark:border-zinc-700 dark:bg-zinc-900">
                     <div className="overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-300 text-left">
-                            <thead className="bg-gray-100">
+                        <table className="min-w-full divide-y divide-gray-300 text-left dark:divide-zinc-700">
+                            <thead className="bg-gray-100 dark:bg-zinc-800">
                                 <tr>
-                                    <th scope="col" className="py-3.5 pl-6 pr-3 text-sm font-bold text-gray-900">
+                                    <th scope="col" className="py-3.5 pl-6 pr-3 text-sm font-bold text-gray-900 dark:text-zinc-100">
                                         Barcode
                                     </th>
-                                    <th scope="col" className="px-3 py-3.5 text-sm font-bold text-gray-900">
+                                    <th scope="col" className="px-3 py-3.5 text-sm font-bold text-gray-900 dark:text-zinc-100">
                                         Naam
                                     </th>
-                                    <th scope="col" className="px-3 py-3.5 text-sm font-bold text-gray-900">
+                                    <th scope="col" className="px-3 py-3.5 text-sm font-bold text-gray-900 dark:text-zinc-100">
                                         Verpakkingseenheid
                                     </th>
-                                    <th scope="col" className="px-3 py-3.5 text-sm font-bold text-gray-900">
+                                    <th scope="col" className="px-3 py-3.5 text-sm font-bold text-gray-900 dark:text-zinc-100">
                                         Aantalaanwezig
                                     </th>
-                                    <th scope="col" className="px-3 py-3.5 text-center text-sm font-bold text-gray-900">
+                                    <th scope="col" className="px-3 py-3.5 text-center text-sm font-bold text-gray-900 dark:text-zinc-100">
                                         Allergenen Info
                                     </th>
-                                    <th scope="col" className="py-3.5 pl-3 pr-6 text-center text-sm font-bold text-gray-900">
+                                    <th scope="col" className="py-3.5 pl-3 pr-6 text-center text-sm font-bold text-gray-900 dark:text-zinc-100">
                                         Leverantie Info
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-200 bg-white">
+                            <tbody className="divide-y divide-gray-200 bg-white dark:divide-zinc-800 dark:bg-zinc-900">
                                 {products && products.length > 0 ? (
                                     products.map((product) => {
                                         const formattedKg = product.VerpakkingsEenheid
@@ -76,19 +76,19 @@ export default function Index({ auth, products }) {
                                         return (
                                             <tr
                                                 key={product.ProductId}
-                                                className="transition hover:bg-pink-50/40"
+                                                className="transition hover:bg-pink-50/40 dark:hover:bg-zinc-800/60"
                                                 id={`product-row-${product.ProductId}`}
                                             >
-                                                <td className="whitespace-nowrap py-4 pl-6 pr-3 font-mono text-sm text-gray-900">
+                                                <td className="whitespace-nowrap py-4 pl-6 pr-3 font-mono text-sm text-gray-900 dark:text-zinc-200">
                                                     {product.Barcode}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900">
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900 dark:text-zinc-100">
                                                     {product.Naam}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600">
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 dark:text-zinc-300">
                                                     {formattedKg}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-800">
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-800 dark:text-zinc-200">
                                                     {aantal}
                                                 </td>
                                                 {/* Allergenen Info (Red Cross) */}
@@ -96,7 +96,7 @@ export default function Index({ auth, products }) {
                                                     <Link
                                                         href={`/magazijn/allergenen/${product.ProductId}`}
                                                         title={`Bekijk allergenen info van ${product.Naam}`}
-                                                        className="inline-flex h-8 w-8 items-center justify-center rounded-full text-red-600 transition hover:bg-red-50 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                                        className="inline-flex h-8 w-8 items-center justify-center rounded-full text-red-600 transition hover:bg-red-50 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 dark:text-red-400 dark:hover:bg-red-950/40"
                                                         id={`allergenen-btn-${product.ProductId}`}
                                                     >
                                                         {/* Red Cross Icon (Wireframe X) */}
@@ -116,7 +116,7 @@ export default function Index({ auth, products }) {
                                                     <Link
                                                         href={`/magazijn/levering/${product.ProductId}`}
                                                         title={`Bekijk leverantie info van ${product.Naam}`}
-                                                        className="inline-flex h-8 w-8 items-center justify-center rounded-full text-blue-600 transition hover:bg-blue-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                        className="inline-flex h-8 w-8 items-center justify-center rounded-full text-blue-600 transition hover:bg-blue-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-blue-400 dark:hover:bg-blue-950/40"
                                                         id={`levering-btn-${product.ProductId}`}
                                                     >
                                                         {/* Blue Question Mark Icon (Wireframe ?) */}

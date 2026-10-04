@@ -31,11 +31,11 @@ export default function Login({ status, canResetPassword }) {
                 </div>
             )}
 
-            <div className="mb-5 rounded-lg border border-pink-200 bg-pink-50/70 p-3.5 text-xs text-pink-900">
+            <div className="mb-5 rounded-lg border border-pink-200 bg-pink-50/70 p-3.5 text-xs text-pink-900 dark:border-pink-900/40 dark:bg-pink-950/40 dark:text-pink-200">
                 <div className="flex items-center justify-between">
                     <div>
                         <span className="font-bold">Magazijnmedewerker account:</span>
-                        <div className="mt-0.5 text-gray-700">magazijn@jamin.nl / password</div>
+                        <div className="mt-0.5 text-gray-700 dark:text-pink-300/80">magazijn@jamin.nl / password</div>
                     </div>
                     <button
                         type="button"
@@ -96,7 +96,7 @@ export default function Login({ status, canResetPassword }) {
                                 setData('remember', e.target.checked)
                             }
                         />
-                        <span className="ms-2 text-sm text-gray-600">
+                        <span className="ms-2 text-sm text-gray-600 dark:text-zinc-400">
                             Remember me
                         </span>
                     </label>
@@ -106,7 +106,7 @@ export default function Login({ status, canResetPassword }) {
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 dark:text-zinc-400 dark:hover:text-zinc-200 dark:focus:ring-offset-zinc-900"
                         >
                             Forgot your password?
                         </Link>

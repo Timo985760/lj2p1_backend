@@ -1,3 +1,4 @@
+import DarkModeToggle from '@/Components/DarkModeToggle';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
@@ -71,6 +72,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                         </Link>
                                     </>
                                 )}
+                                <DarkModeToggle className="ms-2" />
                             </nav>
                         </header>
 
