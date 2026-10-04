@@ -3,16 +3,60 @@
 namespace Tests\Feature;
 
 use App\Models\MagazijnModel;
+use App\Models\User;
 use Tests\TestCase;
 
 class MagazijnTest extends TestCase
 {
     /**
-     * Test 1: Scherm Overzicht Magazijn Jamin kan worden geladen.
+     * Helper om een ingelogde Magazijnmedewerker te verkrijgen.
      */
-    public function test_magazijn_overview_page_can_be_rendered(): void
+    private function getMagazijnUser(): User
+    {
+        $user = User::where('email', 'magazijn@jamin.nl')->first();
+        if (!$user) {
+            $user = User::factory()->create([
+                'name' => 'Timo Swart',
+                'email' => 'magazijn@jamin.nl',
+                'password' => bcrypt('password'),
+                'rolename' => 'Magazijnmedewerker',
+            ]);
+        }
+        return $user;
+    }
+
+    /**
+     * Test: Zonder inloggen wordt de bezoeker doorgestuurd naar de login pagina.
+     */
+    public function test_guest_cannot_view_magazijn_and_is_redirected_to_login(): void
     {
         $response = $this->get('/magazijn');
+
+        $response->assertRedirect('/login');
+    }
+
+    /**
+     * Test: Gebruiker zonder rol Magazijnmedewerker krijgt 403 Forbidden.
+     */
+    public function test_user_without_magazijnmedewerker_role_is_forbidden(): void
+    {
+        $otherUser = User::factory()->make([
+            'rolename' => 'Klant',
+        ]);
+
+        $response = $this->actingAs($otherUser)->get('/magazijn');
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * Test 1: Scherm Overzicht Magazijn Jamin kan worden geladen door Magazijnmedewerker.
+     */
+    public function test_magazijn_overview_page_can_be_rendered_for_magazijnmedewerker(): void
+    {
+        $user = $this->getMagazijnUser();
+
+        $response = $this->actingAs($user)->get('/magazijn');
 
         $response->assertStatus(200);
     }
@@ -39,8 +83,10 @@ class MagazijnTest extends TestCase
      */
     public function test_user_story_1_scenario_01_mintnopjes_delivery(): void
     {
+        $user = $this->getMagazijnUser();
+
         // Mintnopjes heeft ProductId 1
-        $response = $this->get('/magazijn/levering/1');
+        $response = $this->actingAs($user)->get('/magazijn/levering/1');
 
         $response->assertStatus(200);
         $response->assertInertia(fn ($page) => 
@@ -57,8 +103,10 @@ class MagazijnTest extends TestCase
      */
     public function test_user_story_1_scenario_02_winegums_no_stock(): void
     {
+        $user = $this->getMagazijnUser();
+
         // Winegums heeft ProductId 10, AantalAanwezig is NULL/0
-        $response = $this->get('/magazijn/levering/10');
+        $response = $this->actingAs($user)->get('/magazijn/levering/10');
 
         $response->assertStatus(200);
         $response->assertInertia(fn ($page) => 
@@ -74,8 +122,10 @@ class MagazijnTest extends TestCase
      */
     public function test_user_story_2_scenario_01_zoute_ruitjes_allergens(): void
     {
+        $user = $this->getMagazijnUser();
+
         // Zoute Ruitjes heeft ProductId 13
-        $response = $this->get('/magazijn/allergenen/13');
+        $response = $this->actingAs($user)->get('/magazijn/allergenen/13');
 
         $response->assertStatus(200);
         $response->assertInertia(fn ($page) => 
@@ -91,8 +141,10 @@ class MagazijnTest extends TestCase
      */
     public function test_user_story_2_scenario_02_cola_flesjes_no_allergens(): void
     {
+        $user = $this->getMagazijnUser();
+
         // Cola Flesjes heeft ProductId 5
-        $response = $this->get('/magazijn/allergenen/5');
+        $response = $this->actingAs($user)->get('/magazijn/allergenen/5');
 
         $response->assertStatus(200);
         $response->assertInertia(fn ($page) => 

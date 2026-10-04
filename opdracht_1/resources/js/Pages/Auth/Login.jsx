@@ -31,6 +31,28 @@ export default function Login({ status, canResetPassword }) {
                 </div>
             )}
 
+            <div className="mb-5 rounded-lg border border-pink-200 bg-pink-50/70 p-3.5 text-xs text-pink-900">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <span className="font-bold">Magazijnmedewerker account:</span>
+                        <div className="mt-0.5 text-gray-700">magazijn@jamin.nl / password</div>
+                    </div>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setData((prev) => ({
+                                ...prev,
+                                email: 'magazijn@jamin.nl',
+                                password: 'password',
+                            }));
+                        }}
+                        className="rounded bg-pink-600 px-2.5 py-1 text-xs font-semibold text-white transition hover:bg-pink-700"
+                    >
+                        Ingevuld
+                    </button>
+                </div>
+            </div>
+
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
