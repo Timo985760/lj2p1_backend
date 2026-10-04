@@ -17,9 +17,14 @@ export default function Index({ auth, products }) {
                         <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 underline decoration-pink-500 decoration-4 underline-offset-8">
                             Overzicht Magazijn Jamin
                         </h1>
-                        <p className="mt-2 text-sm text-gray-600">
-                            Overzicht van alle in het magazijn aanwezige producten, gesorteerd op Barcode (oplopend).
-                        </p>
+                        <div className="mt-2 flex items-center gap-3">
+                            <p className="text-sm text-gray-600">
+                                Overzicht van alle in het magazijn aanwezige producten, gesorteerd op Barcode (oplopend).
+                            </p>
+                            <span className="inline-flex items-center rounded-full bg-pink-100 px-2.5 py-0.5 text-xs font-semibold text-pink-800">
+                                {products ? products.length : 0} producten
+                            </span>
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-3">
