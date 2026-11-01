@@ -15,7 +15,7 @@ class LeverancierTest extends TestCase
     private function getMagazijnUser(): User
     {
         $user = User::where('email', 'magazijn@jamin.nl')->first();
-        if (!$user) {
+        if (! $user) {
             $user = User::factory()->create([
                 'name' => 'Timo Swart',
                 'email' => 'magazijn@jamin.nl',
@@ -62,12 +62,11 @@ class LeverancierTest extends TestCase
         $response = $this->actingAs($user)->get('/leveranciers');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) =>
-            $page->component('Leverancier/Index')
-                ->has('leveranciers', 6)
+        $response->assertInertia(fn ($page) => $page->component('Leverancier/Index')
+            ->has('leveranciers', 6)
         );
 
-        $model = new LeverancierModel();
+        $model = new LeverancierModel;
         $leveranciers = $model->getAllLeveranciersWithProductCount();
 
         $this->assertCount(6, $leveranciers);
@@ -91,14 +90,13 @@ class LeverancierTest extends TestCase
         $response = $this->actingAs($user)->get('/leveranciers/1/producten');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) =>
-            $page->component('Leverancier/Producten')
-                ->where('leverancier.naam', 'Venco')
-                ->where('hasProducts', true)
-                ->has('producten', 3)
-                ->where('producten.0.naam', 'Mintnopjes')
-                ->where('producten.1.naam', 'Schoolkrijt')
-                ->where('producten.2.naam', 'Honingdrop')
+        $response->assertInertia(fn ($page) => $page->component('Leverancier/Producten')
+            ->where('leverancier.naam', 'Venco')
+            ->where('hasProducts', true)
+            ->has('producten', 3)
+            ->where('producten.0.naam', 'Mintnopjes')
+            ->where('producten.1.naam', 'Schoolkrijt')
+            ->where('producten.2.naam', 'Honingdrop')
         );
     }
 
@@ -114,11 +112,10 @@ class LeverancierTest extends TestCase
         $response = $this->actingAs($user)->get('/leveranciers/6/producten');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) =>
-            $page->component('Leverancier/Producten')
-                ->where('leverancier.naam', 'Quality Street')
-                ->where('hasProducts', false)
-                ->has('producten', 0)
+        $response->assertInertia(fn ($page) => $page->component('Leverancier/Producten')
+            ->where('leverancier.naam', 'Quality Street')
+            ->where('hasProducts', false)
+            ->has('producten', 0)
         );
     }
 
@@ -136,11 +133,10 @@ class LeverancierTest extends TestCase
 
         $getResponse = $this->actingAs($user)->get('/leveranciers/1/producten/1/levering');
         $getResponse->assertStatus(200);
-        $getResponse->assertInertia(fn ($page) =>
-            $page->component('Leverancier/Levering')
-                ->where('product.naam', 'Mintnopjes')
-                ->where('leverancier.naam', 'Venco')
-                ->where('errorMessage', null)
+        $getResponse->assertInertia(fn ($page) => $page->component('Leverancier/Levering')
+            ->where('product.naam', 'Mintnopjes')
+            ->where('leverancier.naam', 'Venco')
+            ->where('errorMessage', null)
         );
 
         $postResponse = $this->actingAs($user)->post('/leveranciers/1/producten/1/levering', [
@@ -153,11 +149,10 @@ class LeverancierTest extends TestCase
         // Controleer dat Aantal in Magazijn nu 453 + 25 = 478 is en Laatste levering vandaag is
         $overviewResponse = $this->actingAs($user)->get('/leveranciers/1/producten');
         $overviewResponse->assertStatus(200);
-        $overviewResponse->assertInertia(fn ($page) =>
-            $page->component('Leverancier/Producten')
-                ->where('producten.0.naam', 'Mintnopjes')
-                ->where('producten.0.aantalInMagazijn', 478)
-                ->where('producten.0.laatsteLevering', date('d-m-Y'))
+        $overviewResponse->assertInertia(fn ($page) => $page->component('Leverancier/Producten')
+            ->where('producten.0.naam', 'Mintnopjes')
+            ->where('producten.0.aantalInMagazijn', 478)
+            ->where('producten.0.laatsteLevering', date('d-m-Y'))
         );
 
         // Herstel naar originele testdata na afloop
@@ -180,12 +175,10 @@ class LeverancierTest extends TestCase
         ]);
 
         $postResponse->assertStatus(200);
-        $postResponse->assertInertia(fn ($page) =>
-            $page->component('Leverancier/Levering')
-                ->where('product.naam', 'Winegums')
-                ->where('leverancier.naam', 'Basset')
-                ->where('errorMessage', 'Het product Winegums van de leverancier Basset wordt niet meer geproduceerd')
+        $postResponse->assertInertia(fn ($page) => $page->component('Leverancier/Levering')
+            ->where('product.naam', 'Winegums')
+            ->where('leverancier.naam', 'Basset')
+            ->where('errorMessage', 'Het product Winegums van de leverancier Basset wordt niet meer geproduceerd')
         );
     }
 }
-
