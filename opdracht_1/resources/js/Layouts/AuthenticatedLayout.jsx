@@ -32,12 +32,20 @@ export default function AuthenticatedLayout({ header, children }) {
                                     Dashboard
                                 </NavLink>
                                 {user.rolename === 'Magazijnmedewerker' && (
-                                    <NavLink
-                                        href="/magazijn"
-                                        active={window.location.pathname.startsWith('/magazijn')}
-                                    >
-                                        Overzicht Magazijn Jamin
-                                    </NavLink>
+                                    <>
+                                        <NavLink
+                                            href="/magazijn"
+                                            active={window.location.pathname.startsWith('/magazijn')}
+                                        >
+                                            Overzicht Magazijn Jamin
+                                        </NavLink>
+                                        <NavLink
+                                            href="/leveranciers"
+                                            active={window.location.pathname.startsWith('/leveranciers')}
+                                        >
+                                            Overzicht Leveranciers
+                                        </NavLink>
+                                    </>
                                 )}
                             </div>
                         </div>
@@ -145,12 +153,20 @@ export default function AuthenticatedLayout({ header, children }) {
                             Dashboard
                         </ResponsiveNavLink>
                         {user.rolename === 'Magazijnmedewerker' && (
-                            <ResponsiveNavLink
-                                href="/magazijn"
-                                active={window.location.pathname.startsWith('/magazijn')}
-                            >
-                                Overzicht Magazijn Jamin
-                            </ResponsiveNavLink>
+                            <>
+                                <ResponsiveNavLink
+                                    href="/magazijn"
+                                    active={window.location.pathname.startsWith('/magazijn')}
+                                >
+                                    Overzicht Magazijn Jamin
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink
+                                    href="/leveranciers"
+                                    active={window.location.pathname.startsWith('/leveranciers')}
+                                >
+                                    Overzicht Leveranciers
+                                </ResponsiveNavLink>
+                            </>
                         )}
                     </div>
 
