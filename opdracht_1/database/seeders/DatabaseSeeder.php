@@ -24,8 +24,22 @@ class DatabaseSeeder extends Seeder
             $sql = preg_replace('/CREATE\s+DATABASE[^\;]+;/i', '', $sql);
             $sql = preg_replace('/USE\s+[^;]+;/i', '', $sql);
 
+            // Extract DELIMITER $$ ... $$ DELIMITER ; blocks (Stored Procedures)
+            $procedures = [];
+            if (preg_match_all('/DELIMITER\s+\$\$\s*(.*?)\s*\$\$\s*DELIMITER\s*;/is', $sql, $matches)) {
+                $procedures = $matches[1];
+                $sql = preg_replace('/DELIMITER\s+\$\$\s*.*?\s*\$\$\s*DELIMITER\s*;/is', '', $sql);
+            }
+
+            $pdo = DB::connection()->getPdo();
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-            DB::connection()->getPdo()->exec($sql);
+            $pdo->exec($sql);
+            foreach ($procedures as $procedureSql) {
+                $trimmed = trim($procedureSql);
+                if ($trimmed !== '') {
+                    $pdo->exec($trimmed);
+                }
+            }
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
 
@@ -39,4 +53,3 @@ class DatabaseSeeder extends Seeder
         }
     }
 }
-

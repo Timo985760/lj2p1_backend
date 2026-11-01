@@ -46,7 +46,6 @@ class MagazijnModel
                 m.AantalAanwezig
             FROM Product p
             LEFT JOIN Magazijn m ON p.Id = m.ProductId
-            WHERE p.IsActief = 1
             ORDER BY p.Barcode ASC
         ";
 

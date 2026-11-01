@@ -18,8 +18,22 @@ return new class extends Migration
             $sql = preg_replace('/CREATE\s+DATABASE[^\;]+;/i', '', $sql);
             $sql = preg_replace('/USE\s+[^;]+;/i', '', $sql);
 
+            // Extract DELIMITER $$ ... $$ DELIMITER ; blocks (Stored Procedures)
+            $procedures = [];
+            if (preg_match_all('/DELIMITER\s+\$\$\s*(.*?)\s*\$\$\s*DELIMITER\s*;/is', $sql, $matches)) {
+                $procedures = $matches[1];
+                $sql = preg_replace('/DELIMITER\s+\$\$\s*.*?\s*\$\$\s*DELIMITER\s*;/is', '', $sql);
+            }
+
+            $pdo = DB::connection()->getPdo();
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-            DB::connection()->getPdo()->exec($sql);
+            $pdo->exec($sql);
+            foreach ($procedures as $procedureSql) {
+                $trimmed = trim($procedureSql);
+                if ($trimmed !== '') {
+                    $pdo->exec($trimmed);
+                }
+            }
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }
@@ -29,6 +43,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        DB::statement('DROP PROCEDURE IF EXISTS sp_AddProductLevering');
+        DB::statement('DROP PROCEDURE IF EXISTS sp_GetProductLeverancierInfo');
+        DB::statement('DROP PROCEDURE IF EXISTS sp_GetProductsByLeverancier');
+        DB::statement('DROP PROCEDURE IF EXISTS sp_GetLeverancierById');
+        DB::statement('DROP PROCEDURE IF EXISTS sp_GetAllLeveranciers');
         DB::statement('DROP TABLE IF EXISTS ProductPerLeverancier');
         DB::statement('DROP TABLE IF EXISTS ProductPerAllergeen');
         DB::statement('DROP TABLE IF EXISTS Magazijn');
