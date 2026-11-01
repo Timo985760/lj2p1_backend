@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LeverancierController;
 use App\Http\Controllers\MagazijnController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -16,9 +17,16 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'role:Magazijnmedewerker'])->group(function () {
+    // Opdracht 1: Overzicht Magazijn Jamin
     Route::get('/magazijn', [MagazijnController::class, 'index'])->name('magazijn.index');
     Route::get('/magazijn/levering/{productId}', [MagazijnController::class, 'levering'])->name('magazijn.levering');
     Route::get('/magazijn/allergenen/{productId}', [MagazijnController::class, 'allergenen'])->name('magazijn.allergenen');
+
+    // Opdracht 2: User Story 1 (Overzicht Leveranciers) & User Story 2 (Toevoegen Producten)
+    Route::get('/leveranciers', [LeverancierController::class, 'index'])->name('leverancier.index');
+    Route::get('/leveranciers/{leverancierId}/producten', [LeverancierController::class, 'producten'])->name('leverancier.producten');
+    Route::get('/leveranciers/{leverancierId}/producten/{productId}/levering', [LeverancierController::class, 'createLevering'])->name('leverancier.levering.create');
+    Route::post('/leveranciers/{leverancierId}/producten/{productId}/levering', [LeverancierController::class, 'storeLevering'])->name('leverancier.levering.store');
 });
 
 Route::get('/dashboard', function () {
